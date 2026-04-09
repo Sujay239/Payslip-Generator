@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Notification - Auto Computation</title>
+</head>
+<body style="font-family: 'Inter', sans-serif, Arial; background-color: #f8fafc; color: #1e293b; margin: 0; padding: 40px 20px; line-height: 1.6;">
+    <div class="container" style="max-width: 650px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);">
+        
+        <header class="header" style="background-color: #0d7e29f3; padding: 40px; text-align: center; color: white; position: relative;">
+            <div class="logo-container" style="background: white; display: inline-block; padding: 10px 20px; border-radius: 8px; margin-bottom: 20px;">
+                <img src="https://autocomputation.com/wp-content/uploads/2025/07/autocomputation-logo.png" alt="Auto Computation" style="height: 50px; width: auto; display: block;">
+            </div>
+            <h1 style="font-family: 'Outfit', sans-serif, Arial; margin: 0; font-size: 28px; letter-spacing: 1px;">Salary Credited 💸</h1>
+            <div style="margin-top: 15px; font-size: 14px; opacity: 0.8;">Payment for {{ $json.formattedPayMonth }}</div>
+        </header>
+        
+        <div class="content" style="padding: 40px;">
+            <div class="greeting" style="font-size: 18px; font-weight: 500; margin-bottom: 20px;">Hi {{ $json.employeeName }},</div>
+            <p class="main-msg" style="color: #64748b; margin-bottom: 30px;">
+                Good news! Your salary for <strong>{{ $json.formattedPayMonth }}</strong> has been successfully processed and credited to your account. 
+                Below is a summary of your payment details.
+            </p>
+
+            <div class="payslip-summary" style="background: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 12px; padding: 25px; margin-bottom: 30px;">
+                <div class="summary-header" style="text-align: center; margin-bottom: 20px;">
+                    <div class="net-label" style="font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">Net Credited Amount</div>
+                    <div class="net-amount" style="font-size: 36px; font-weight: 700; color: #0d7e29f3; font-family: 'Outfit', sans-serif, Arial;">₹ {{ $json.netPayable }}</div>
+                </div>
+                
+                <div class="details-grid" style="display: block; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 10px;">
+                        <tr>
+                            <td style="padding: 8px 0; font-size: 13px;">
+                                <span class="detail-label" style="color: #64748b; display: block; margin-bottom: 2px;">Employee ID</span>
+                                <span class="detail-value" style="font-weight: 600; color: #1e293b;">{{ $json.employeeId }}</span>
+                            </td>
+                            <td style="padding: 8px 0; font-size: 13px;">
+                                <span class="detail-label" style="color: #64748b; display: block; margin-bottom: 2px;">Designation</span>
+                                <span class="detail-value" style="font-weight: 600; color: #1e293b;">{{ $json.designation }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; font-size: 13px;">
+                                <span class="detail-label" style="color: #64748b; display: block; margin-bottom: 2px;">Payment Date</span>
+                                <span class="detail-value" style="font-weight: 600; color: #1e293b;">{{ $json.formattedPaymentDate }}</span>
+                            </td>
+                            <td style="padding: 8px 0; font-size: 13px;">
+                                <span class="detail-label" style="color: #64748b; display: block; margin-bottom: 2px;">Method</span>
+                                <span class="detail-value" style="font-weight: 600; color: #1e293b;">{{ $json.paymentMethod }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; font-size: 13px;">
+                                <span class="detail-label" style="color: #64748b; display: block; margin-bottom: 2px;">Bank A/C</span>
+                                <span class="detail-value" style="font-weight: 600; color: #1e293b;">**** **** {{ $json.bankAccount }}</span>
+                            </td>
+                            <td style="padding: 8px 0; font-size: 13px;">
+                                <span class="detail-label" style="color: #64748b; display: block; margin-bottom: 2px;">Transaction ID</span>
+                                <span class="detail-value" style="font-weight: 600; color: #ef4444;">{{ $json.txnId }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <p style="font-size: 14px; text-align: center; color: #64748b; line-height: 1.5; margin-bottom: 0;">
+                You can download the full PDF version of your digital payslip by logging into your employee portal. 
+                If you have any questions regarding your salary, please contact the HR department.
+            </p>
+        </div>
+
+        <footer class="footer" style="background-color: #f8fafc; padding: 30px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 12px; color: #64748b;">
+            <div class="company-info" style="margin-bottom: 15px;">
+                <strong style="color: #1e293b; display: block; margin-bottom: 4px;">Auto Computation</strong>
+                511, Narkel Bagan, Kolkata - 700084<br>
+                contact@autocomcomputation.com | +91 9477085478
+            </div>
+            <p style="margin: 5px 0;">&copy; 2026 Auto Computation. All rights reserved.</p>
+            <p style="margin: 5px 0;">This is a computer-generated notification. Please do not reply to this email.</p>
+        </footer>
+    </div>
+</body>
+</html>

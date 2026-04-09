@@ -1,0 +1,576 @@
+:root {
+    --primary: #1e40af;
+    --primary-light: #3b82f6;
+    --primary-dark: #1e3a8a;
+    --success: #10b981;
+    --success-dark: #059669;
+    --accent: #ef4444;
+    --bg-app: #f1f5f9;
+    --bg-form: rgba(255, 255, 255, 0.7);
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --glass-border: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-subtle {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-fade { animation: fadeIn 0.4s ease-out; }
+.animate-pulse { animation: pulse-subtle 2s infinite ease-in-out; }
+.animate-spin { animation: spin 1s linear infinite; }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .logo-text {
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Layout */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Form Section */
+.form-section {
+    width: 550px;
+    background: var(--bg-form);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid var(--border);
+    padding: 2rem;
+    height: 100vh;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+    box-shadow: 10px 0 15px -3px rgba(0, 0, 0, 0.02);
+}
+
+.form-header {
+    margin-bottom: 2rem;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.logo-text span {
+    color: var(--text-main);
+}
+
+.form-header p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    font-size: 0.75rem !important;
+    padding: 0.4rem 0.8rem !important;
+    background: rgba(30, 64, 175, 0.05);
+}
+
+.nav-link:hover {
+    background: rgba(30, 64, 175, 0.1);
+}
+
+/* Employee Selection Header */
+.employee-selection-header {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.selection-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.selection-row select {
+    flex: 1;
+}
+
+.btn-sm {
+    padding: 0.5rem !important;
+}
+
+.group-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--primary);
+}
+
+.form-help-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    background: rgba(30, 64, 175, 0.04);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    border-left: 2px solid var(--primary-light);
+}
+
+.form-group-wrapper {
+    margin-bottom: 2rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    color: var(--text-muted);
+}
+
+.required-mark {
+    color: var(--accent);
+    margin-left: 2px;
+}
+
+input, select, textarea {
+    padding: 0.75rem;
+    background-color: #fff;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+input:read-only {
+    background-color: #f1f5f9;
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+/* Buttons */
+.primary-btn, .success-btn, .secondary-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+}
+
+.primary-btn {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+.primary-btn:hover:not(:disabled) {
+    background-color: var(--primary-dark);
+}
+
+.success-btn {
+    background-color: var(--success);
+    color: #fff;
+}
+
+.success-btn:hover:not(:disabled) {
+    background-color: var(--success-dark);
+}
+
+.secondary-btn {
+    background-color: #f1f5f9;
+    color: var(--text-main);
+}
+
+.secondary-btn:hover {
+    background-color: #e2e8f0;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+.form-footer {
+    margin-top: 2rem;
+}
+
+/* Preview Section */
+.preview-section {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: radial-gradient(circle at top right, #eff6ff, transparent);
+    overflow-y: auto;
+}
+
+.payslip-card {
+    background-color: #fff;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.payslip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.company-logo img {
+    height: 60px;
+    width: auto;
+}
+
+.company-details {
+    text-align: right;
+}
+
+.company-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.company-details p {
+    font-size: 0.8125rem;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.divider {
+    height: 3px;
+    background-color: #000;
+    margin: 15px 0;
+}
+
+.document-title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.document-title h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.document-title p {
+    font-size: 0.9375rem;
+    color: #333;
+}
+
+.payslip-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.info-column {
+    flex: 1;
+}
+
+.info-row {
+    margin-bottom: 8px;
+    display: flex;
+    font-size: 0.875rem;
+}
+
+.info-label {
+    width: 140px;
+    font-weight: 500;
+}
+
+.info-value {
+    font-weight: 400;
+}
+
+.salary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+}
+
+.salary-table th {
+    background-color: #337ab7;
+    color: #fff;
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid #ddd;
+}
+
+.salary-table td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    font-size: 0.875rem;
+}
+
+.total-row {
+    background-color: #f9f9f9;
+    font-weight: 600;
+}
+
+.net-payable {
+    display: flex;
+    justify-content: space-between;
+    background-color: #dff0d8;
+    color: #3c763d;
+    padding: 12px 20px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    border-radius: 4px;
+    margin-bottom: 40px;
+}
+
+.payslip-footer {
+    margin-top: auto;
+    text-align: center;
+    font-style: italic;
+    font-size: 0.8125rem;
+    color: #666;
+}
+
+.preview-actions {
+    display: flex;
+    gap: 1rem;
+    width: 210mm;
+    justify-content: flex-end;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: #fff;
+    width: 450px;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.success-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.modal-lg {
+    width: 650px;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-header h3 {
+    font-size: 1.25rem;
+    color: var(--text-main);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.modal-body {
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+}
+
+.confirmation-summary {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+}
+
+.confirmation-summary p {
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background-color: #fff;
+    }
+    
+    .app-container {
+        display: block;
+    }
+    
+    .preview-section {
+        padding: 0;
+        background: none;
+        overflow: visible;
+    }
+    
+    .payslip-card {
+        box-shadow: none;
+        width: 100%;
+        border-radius: 0;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .app-container {
+        flex-direction: column;
+    }
+    
+    .form-section {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+    
+    .preview-section {
+        padding: 1rem;
+        overflow-x: auto;
+    }
+    
+    .payslip-card, .preview-actions {
+        width: 210mm;
+        transform: scale(0.9);
+        transform-origin: top center;
+    }
+}
+
+@media (max-width: 768px) {
+     .payslip-card, .preview-actions {
+        transform: scale(0.7);
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}

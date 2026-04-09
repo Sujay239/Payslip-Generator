@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premium Payslip Generator</title>
+    <meta
+      name="description"
+      content="Generate professional, clean, and beautiful payslips in seconds. Live preview and PDF export available."
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Manual PDF Power Tools -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Input Form Section -->
+      <aside class="form-section no-print">
+        <header class="form-header">
+          <div class="logo-text">
+            <span>Auto</span
+            ><span style="color: rgb(204, 19, 19)"> Computation</span>
+            Payslip<span>Pro</span>
+          </div>
+          <div class="header-nav">
+            <p>Fill in the details to generate a professional payslip.</p>
+            <a
+              href="manage_employees.html"
+              class="secondary-btn btn-sm nav-link"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              Manage Employees
+            </a>
+          </div>
+        </header>
+
+        <div class="employee-selection-header">
+          <div class="form-group">
+            <label>Select Employee</label>
+            <div class="selection-row">
+              <select id="employeeSelect">
+                <option value="" disabled selected>
+                  -- Select an Employee --
+                </option>
+              </select>
+              <button
+                type="button"
+                id="addNewEmployeeBtn"
+                class="secondary-btn btn-sm"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 5v14M5 12h14"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <form id="payslip-form">
+          <!-- Employee Details -->
+          <div class="form-group-wrapper">
+            <h2 class="group-title">Employee Details</h2>
+            <p class="form-help-text">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="vertical-align: middle; margin-right: 4px"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              Note: To change the data of disabled fields, change the selected
+              employee details.
+            </p>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="employeeName"
+                  >Employee Name <span class="required-mark">*</span></label
+                >
+                <input
+                  type="text"
+                  id="employeeName"
+                  placeholder="e.g. Select an employee"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="employeeId"
+                  >Employee ID / Reference No
+                  <span class="required-mark">*</span>
+                  <small>(Founded in offer letter)</small></label
+                >
+                <input
+                  type="text"
+                  id="employeeId"
+                  placeholder="e.g. AC/OL/2025/11"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="designation"
+                  >Designation <span class="required-mark">*</span></label
+                >
+                <input
+                  type="text"
+                  id="designation"
+                  placeholder="e.g. Full Stack Web Developer"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Salary Details -->
+          <div class="form-group-wrapper">
+            <h2 class="group-title">Salary Details</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="grossSalary"
+                  >Gross Salary (INR)
+                  <span class="required-mark">*</span></label
+                >
+                <input
+                  type="number"
+                  id="grossSalary"
+                  placeholder="10000"
+                  min="0"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="deductions"
+                  >Deductions (INR) <span class="required-mark">*</span></label
+                >
+                <input
+                  type="number"
+                  id="deductions"
+                  value="0"
+                  min="0"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Details -->
+          <div class="form-group-wrapper">
+            <h2 class="group-title">Payment Details</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="payMonth"
+                  >For Month & Year <span class="required-mark">*</span></label
+                >
+                <input type="month" id="payMonth" required />
+              </div>
+              <div class="form-group">
+                <label for="payDate"
+                  >Payment Date <span class="required-mark">*</span></label
+                >
+                <input type="date" id="payDate" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="paymentMethod"
+                  >Payment Method <span class="required-mark">*</span></label
+                >
+                <select id="paymentMethod">
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="NEFT" selected>NEFT</option>
+                  <option value="IMPS">IMPS</option>
+                  <option value="UPI">UPI</option>
+                  <option value="Cash">Cash</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="bankAccount"
+                  >Bank A/C (Last 4 Digits)
+                  <span class="required-mark">*</span></label
+                >
+                <input
+                  type="text"
+                  id="bankAccount"
+                  placeholder="5948"
+                  maxlength="4"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="txnId"
+                >Transaction ID <span class="required-mark">*</span></label
+              >
+              <input
+                type="text"
+                id="txnId"
+                placeholder="TXN41335098"
+                required
+              />
+            </div>
+          </div>
+        </form>
+        <div class="form-footer no-print">
+          <button type="button" id="generateBtn" class="primary-btn">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+            Generate Slip
+          </button>
+        </div>
+      </aside>
+
+      <!-- Preview Section -->
+      <main class="preview-section">
+        <div id="payslip-template" class="payslip-card">
+          <header class="payslip-header">
+            <div class="company-logo">
+              <img src="logo.png" alt="Company Logo" id="previewLogo" />
+            </div>
+            <div class="company-details">
+              <h1 class="company-name">Auto Computation</h1>
+              <p class="company-address">511, Narkel Bagan, Kolkata - 700084</p>
+              <p class="company-contact">
+                contact@autocomputation.com | +91 9477085478
+              </p>
+              <p class="company-web">Website: autocomputation.com</p>
+            </div>
+          </header>
+
+          <div class="divider"></div>
+
+          <div class="document-title">
+            <h2>PAYSLIP</h2>
+            <p id="previewMonth">For the month of February 2026</p>
+          </div>
+
+          <div class="payslip-info">
+            <div class="info-column">
+              <div class="info-row">
+                <span class="info-label">Employee Name:</span>
+                <span class="info-value" id="previewEmployeeName"
+                  >[Enter Employee Name]</span
+                >
+              </div>
+              <div class="info-row">
+                <span class="info-label">Reference No:</span>
+                <span class="info-value" id="previewEmployeeId">[Ref/ID]</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Designation:</span>
+                <span class="info-value" id="previewDesignation"
+                  >[Designation]</span
+                >
+              </div>
+            </div>
+            <div class="info-column">
+              <div class="info-row">
+                <span class="info-label">Pay Date:</span>
+                <span class="info-value" id="previewPayDate">DD/MM/YYYY</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Payment Method:</span>
+                <span class="info-value" id="previewPaymentMethod">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Bank A/C:</span>
+                <span class="info-value" id="previewBankAccount"
+                  >**** **** ----</span
+                >
+              </div>
+              <div class="info-row">
+                <span class="info-label">Transaction ID:</span>
+                <span class="info-value" id="previewTxnId">N/A</span>
+              </div>
+            </div>
+          </div>
+
+          <table class="salary-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Earnings (INR)</th>
+                <th>Deductions (INR)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Gross Salary</td>
+                <td id="previewGross">₹ 0.00</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Deductions</td>
+                <td></td>
+                <td id="previewDeductions">₹ 0.00</td>
+              </tr>
+              <tr class="total-row">
+                <td>Total</td>
+                <td id="previewTotalEarnings">₹ 0.00</td>
+                <td id="previewTotalDeductions">₹ 0.00</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="net-payable">
+            <span class="net-label">NET PAYABLE AMOUNT</span>
+            <span class="net-value" id="previewNetTotal">₹ 0.00</span>
+          </div>
+
+          <footer class="payslip-footer">
+            <p>This is a computer-generated document.</p>
+          </footer>
+        </div>
+
+        <div class="preview-actions no-print">
+          <button id="confirmBtn" class="success-btn" disabled>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            Confirm All Details
+          </button>
+          <button id="savePdfBtn" class="primary-btn" disabled>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M6 9V2h12v7"></path>
+              <path
+                d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+              ></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            Save PDF
+          </button>
+        </div>
+      </main>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="modalOverlay" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Confirm Details</h3>
+          <button id="closeModal" class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Are you sure all the details are correct? Once confirmed, you will
+            be able to save the payslip as a PDF.
+          </p>
+          <div class="confirmation-summary">
+            <p>
+              <strong>Employee:</strong> <span id="modalEmployeeName"></span>
+            </p>
+            <p>
+              <strong>Payslip Month:</strong>
+              <span id="modalPayslipMonth"></span>
+            </p>
+            <p>
+              <strong>Net Payable:</strong> <span id="modalNetPayable"></span>
+            </p>
+            <p>
+              <strong>Transaction ID:</strong> <span id="modalTxnId"></span>
+            </p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="cancelConfirm" class="secondary-btn">Cancel</button>
+          <button id="finalConfirm" class="success-btn">
+            Yes, Confirm Details
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Employee Modal -->
+    <div id="employeeModal" class="modal-overlay">
+      <div class="modal-content modal-lg">
+        <div class="modal-header">
+          <h3>Add New Employee</h3>
+          <button id="closeEmployeeModal" class="close-btn">&times;</button>
+        </div>
+        <form id="addEmployeeForm">
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Name <span class="required-mark">*</span></label>
+                <input
+                  type="text"
+                  id="newEmpName"
+                  required
+                  placeholder="e.g. Enter Employee Name"
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  >Employee ID <span class="required-mark">*</span>
+                  <small>(Founded in offer letter)</small></label
+                >
+                <input
+                  type="text"
+                  id="newEmpId"
+                  required
+                  placeholder="e.g. Enter Employee ID"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Designation <span class="required-mark">*</span></label>
+                <input
+                  type="text"
+                  id="newEmpDesignation"
+                  required
+                  placeholder="e.g. Enter Designation"
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  >Gross Salary (INR)
+                  <span class="required-mark">*</span></label
+                >
+                <input
+                  type="number"
+                  id="newEmpGross"
+                  min="0"
+                  required
+                  placeholder="Enter Gross Salary"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Phone <span class="required-mark">*</span></label>
+                <input
+                  type="tel"
+                  id="newEmpPhone"
+                  required
+                  placeholder="e.g. Enter Phone Number"
+                />
+              </div>
+              <div class="form-group">
+                <label>Email <span class="required-mark">*</span></label>
+                <input
+                  type="email"
+                  id="newEmpEmail"
+                  required
+                  placeholder="e.g. Enter Email Address"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label
+                >Bank A/C (Last 4 Digits)
+                <span class="required-mark">*</span></label
+              >
+              <input
+                type="text"
+                id="newEmpBank"
+                maxlength="4"
+                required
+                placeholder="e.g. Enter Last 4 Digits of Bank Account"
+              />
+            </div>
+            <div class="form-group">
+              <label>Address <span class="required-mark">*</span></label>
+              <textarea
+                id="newEmpAddress"
+                rows="2"
+                required
+                placeholder="e.g. Enter Address"
+                style="resize: none; height: 100px"
+              ></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="cancelEmployee" class="secondary-btn">
+              Cancel
+            </button>
+            <button type="submit" class="success-btn">Save Employee</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal-overlay">
+      <div class="modal-content text-center">
+        <div class="success-icon">
+          <svg
+            width="64"
+            height="64"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="var(--success)"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <h3 id="successModalTitle" style="margin: 1rem 0">Success!</h3>
+        <p
+          id="successModalMessage"
+          style="margin-bottom: 2rem; color: var(--text-muted)"
+        >
+          Employee details saved successfully.
+        </p>
+        <div class="modal-footer" style="justify-content: center">
+          <button
+            id="closeSuccessModal"
+            class="success-btn"
+            style="width: 120px"
+          >
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
