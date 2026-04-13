@@ -160,6 +160,53 @@
     </style>
   </head>
   <body>
+    <!-- Mobile Block Modal -->
+    <div id="mobileBlockModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #f8fafc; z-index: 999999; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; font-family: 'Inter', sans-serif; box-sizing: border-box;">
+      <div style="background: white; padding: 3rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 450px; width: 100%;">
+        <div style="background: #fee2e2; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            <path d="m2 2 20 20"></path>
+          </svg>
+        </div>
+        <h2 style="color: #1e293b; margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;">Device Not Supported</h2>
+        <p style="color: #64748b; line-height: 1.6; margin-bottom: 0;">
+          This application requires a larger screen for the best experience. Please open it on a laptop or desktop computer.
+          <br><br>
+          <small>Note: Desktop mode on mobile devices is also intentionally blocked to ensure proper functionality.</small>
+        </p>
+      </div>
+    </div>
+    <script>
+      function enforceDesktopAccess() {
+        const ua = navigator.userAgent;
+        // Check for standard mobile User-Agent (ignoring Windows to avoid blocking Windows touch laptops)
+        const isMobileUA = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) && !/Windows/i.test(ua);
+        
+        // Touch capability check
+        const hasTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        
+        // iPad requesting desktop site spoofs as Macintosh
+        const isIPadDesktop = hasTouch && /Macintosh/i.test(ua);
+        
+        // Android requesting desktop site often spoofs as Linux x86_64
+        // A real Linux laptop generally won't have window.orientation defined
+        const isAndroidDesktop = hasTouch && /Linux/i.test(ua) && (typeof window.orientation !== "undefined" || Math.min(window.screen.width, window.screen.height) < 1000);
+
+        if (isMobileUA || isIPadDesktop || isAndroidDesktop) {
+          document.getElementById('mobileBlockModal').style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.getElementById('mobileBlockModal').style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      }
+      
+      enforceDesktopAccess();
+      window.addEventListener('load', enforceDesktopAccess);
+      window.addEventListener('resize', enforceDesktopAccess);
+    </script>
     <div class="manage-container">
       <div class="manage-header">
         <div class="header-title">
