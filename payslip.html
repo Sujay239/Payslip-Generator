@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+      if (!localStorage.getItem('jwtToken')) {
+        window.location.replace('login.html');
+      } else {
+        document.documentElement.classList.add('auth-passed');
+      }
+    </script>
+    <style>
+      body { display: none !important; }
+      html.auth-passed body { display: block !important; }
+    </style>
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=login.html" />
+    </noscript>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salary Notification - Auto Computation</title>

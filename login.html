@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Login | PayslipPro</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="login.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Premium Mesh Gradient Background -->
+    <div class="mesh-gradient-bg"></div>
+
+    <div class="login-wrapper">
+        <div class="login-card">
+            <header class="login-header">
+                <div class="logo-text">
+                    <span class="brand-accent">Auto Computation</span><br>
+                    Payslip<span>Pro</span>
+                </div>
+                <p>Welcome back! Please login to your account.</p>
+            </header>
+
+            <div id="errorMessage" class="error-message">
+                Invalid credentials. Please verify your access.
+            </div>
+
+            <form id="loginForm">
+                <!-- Email Input with Floating Label -->
+                <div class="form-group" id="emailGroup">
+                    <input type="email" id="email" required autocomplete="email">
+                    <label for="email">Email Address</label>
+                </div>
+
+                <!-- Password Input with Floating Label -->
+                <div class="form-group" id="passwordGroup">
+                    <input type="password" id="password" required autocomplete="current-password">
+                    <label for="password">Password</label>
+                    <button type="button" id="togglePassword" class="toggle-password" tabindex="-1" title="Toggle visibility">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+
+
+                <button type="submit" id="loginBtn" class="login-btn">
+                    Authenticate
+                </button>
+            </form>
+
+            <div class="footer-text" style="margin-top: 1.5rem;">
+                Forgot credentials? <span style="color: blue; cursor: pointer; text-decoration: underline; font-weight: bold;">Contact dev team</span>
+            </div>
+        </div>
+        
+        <div class="footer-text">
+            <span>&copy; 2026 Auto Computation. Secured Protocol.</span>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

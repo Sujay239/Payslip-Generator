@@ -58,6 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const response = await fetch(
         "https://n8n.srv917960.hstgr.cloud/webhook/get-employees",
+        {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+          }
+        }
       );
       if (!response.ok) throw new Error("Failed to fetch employees");
 
@@ -264,6 +269,9 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleModal(modalOverlay, true);
   });
 
+  document.getElementById("cancelConfirm").addEventListener("click", () => toggleModal(modalOverlay, false));
+  document.getElementById("closeModal").addEventListener("click", () => toggleModal(modalOverlay, false));
+
   // Shared PDF Generation Engine (Returns a Blob)
   const generatePdfBlob = async (element) => {
     const originalDisplay = element.style.display;
@@ -353,6 +361,9 @@ document.addEventListener("DOMContentLoaded", () => {
           "https://n8n.srv917960.hstgr.cloud/webhook/generate-payslip",
           {
             method: "POST",
+            headers: {
+              "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+            },
             body: formData,
           },
         );
@@ -419,6 +430,7 @@ document.addEventListener("DOMContentLoaded", () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
           },
           body: JSON.stringify(newEmp),
         },

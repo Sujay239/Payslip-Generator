@@ -61,6 +61,11 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const response = await fetch(
         "https://n8n.srv917960.hstgr.cloud/webhook/get-employees",
+        {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+          }
+        }
       );
       if (!response.ok) throw new Error("Failed to fetch");
 
@@ -194,7 +199,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "https://n8n.srv917960.hstgr.cloud/webhook/new-employee",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+          },
           body: JSON.stringify(newEmp),
         },
       );
@@ -259,7 +267,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "https://n8n.srv917960.hstgr.cloud/webhook/update-employee",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+          },
           body: JSON.stringify(updatedEmp),
         },
       );
@@ -306,7 +317,10 @@ document.addEventListener("DOMContentLoaded", () => {
           "https://n8n.srv917960.hstgr.cloud/webhook/delete-employee",
           {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+            },
             body: JSON.stringify({
               id: employeeToDelete.id,
               email: employeeToDelete.email,
